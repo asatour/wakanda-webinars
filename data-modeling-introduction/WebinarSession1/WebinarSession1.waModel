@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="UTF-8"?><EntityModelCatalog>
+
+<dbInfo name="WebinarSession1" uuid="DEB2380315EE8E47AF7052ECFC4FADBC"/>
+
+<extraProperties ____objectunic="true">
+
+	<relationCurve ____objectunic="true" run="false" mode="2"/>
+</extraProperties>
+
+<dataClasses name="Attendee" className="Attendee" collectionName="Attendees" scope="public" uuid="4BEF81DCC98C4A459B960623B5922F86" tablePos="4">
+
+	<extraProperties ____objectunic="true" panelColor="#D7E3BC" flatVisible="true">
+
+		<panel ____objectunic="true" isOpen="true" pathVisible="true">
+
+			<position ____objectunic="true" X="408" Y="53"/>
+</panel>
+</extraProperties>
+
+	<attributes name="ID" kind="storage" scope="public" uuid="CF171E21DCDD8A478EA30D36CCF7FD37" fieldPos="1" unique="true" autosequence="true" type="long" primKey="true"/>
+
+	<attributes name="gradePoint" kind="storage" scope="public" uuid="CE65965BD7619B41847A64926A33FDA1" fieldPos="4" type="number" indexKind="cluster"/>
+
+	<attributes name="grade" kind="calculated" scope="public" type="string" scriptKind="javascript">
+
+		<onGet from="guidedModel.Attendee.grade.onGet"/>
+
+		<onSet from="guidedModel.Attendee.grade.onSet"/>
+
+		<onQuery from="guidedModel.Attendee.grade.onQuery"/>
+
+		<onSort from="guidedModel.Attendee.grade.onSort"/>
+
+	</attributes>
+
+	<attributes name="studentName" kind="alias" scope="public" path="theStudent.fullName"/>
+
+	<attributes name="courseName" kind="alias" scope="public" columnName="name" type="string" path="theCourse.name"/>
+
+	<attributes name="theStudent" kind="relatedEntity" scope="public" type="Student" uuid="6BB0646D0A8F3A4C99406E95D795BB44" fieldPos="2" path="Student"/>
+
+	<attributes name="theCourse" kind="relatedEntity" scope="public" type="Course" uuid="3119BAA5F3FEA54BA16B0CC1D96599C2" fieldPos="3" path="Course"/>
+
+	<attributes name="teacherName" kind="alias" scope="public" path="theCourse.courseTeacher.fullName"/>
+
+</dataClasses>
+
+<dataClasses name="Course" className="Course" collectionName="Courses" scope="public" uuid="742CC5CED55305459CBEF88E0EE09A45" tablePos="2">
+
+	<extraProperties ____objectunic="true" panelColor="#C4BD97" flatVisible="true">
+
+		<panel ____objectunic="true" isOpen="true" pathVisible="true" resizedHeight="">
+
+			<position ____objectunic="true" X="734" Y="51"/>
+</panel>
+</extraProperties>
+
+	<attributes name="ID" kind="storage" scope="public" uuid="579021841FE555478E87EFBA8B0194F2" fieldPos="1" unique="true" autosequence="true" type="long" primKey="true"/>
+
+	<attributes name="name" kind="storage" scope="public" uuid="0A2E35B256CCF14D827D1DAC7B9B02B1" fieldPos="2" type="string"/>
+
+	<attributes name="semester" kind="storage" scope="public" uuid="A20DB98F7B7C164E90FAEBEBF628711D" fieldPos="3" type="string"/>
+
+	<attributes name="year" kind="storage" scope="public" uuid="A9FE523B6C64AD4D871168BBB611C920" fieldPos="4" type="string"/>
+
+	<attributes name="courseTeacher" kind="relatedEntity" scope="public" type="Teacher" uuid="E07CC12378AF9342A8CF64A42E87A12F" fieldPos="5" path="Teacher"/>
+
+	<attributes name="attendees" kind="relatedEntities" scope="public" type="Attendees" reversePath="true" path="theCourse"/>
+
+	<attributes name="teacherName" kind="alias" scope="public" path="courseTeacher.fullName"/>
+
+</dataClasses>
+
+<dataClasses name="Student" className="Student" collectionName="Students" scope="public" uuid="AE0A96CFBA7EA747AC900FA643975F55" tablePos="1">
+
+	<extraProperties ____objectunic="true" panelColor="#eee">
+
+		<panel ____objectunic="true" isOpen="true" pathVisible="true">
+
+			<position ____objectunic="true" X="35" Y="35"/>
+</panel>
+</extraProperties>
+
+	<attributes name="ID" kind="storage" scope="public" uuid="2192EAFCA000124F83168C2072FA61FA" fieldPos="1" unique="true" autosequence="true" type="long" primKey="true"/>
+
+	<attributes name="first" kind="storage" scope="public" uuid="FDAF0DCECD94D6478460B2BFFD09FB62" fieldPos="2" type="string" indexKind="btree"/>
+
+	<attributes name="last" kind="storage" scope="public" uuid="27C69C12D3BD5641B0573D3C049EEDE1" fieldPos="3" type="string"/>
+
+	<attributes name="fullName" kind="calculated" scope="public" type="string" scriptKind="javascript">
+
+		<onGet from="guidedModel.Student.fullName.onGet"/>
+
+	</attributes>
+
+	<attributes name="attendance" kind="relatedEntities" scope="public" type="Attendees" reversePath="true" path="theStudent"/>
+
+	<attributes name="coursesAttended" kind="relatedEntities" scope="public" type="Courses" path="attendance.theCourse"/>
+
+	<methods name="getRandom" applyTo="dataClass" scope="publicOnServer" from="guidedModel.Student.methods.getRandom"/>
+
+</dataClasses>
+
+<dataClasses name="Teacher" className="Teacher" collectionName="Teachers" scope="public" uuid="2FA7B547016F0D43BD282E0B29C8BA50" tablePos="3">
+
+	<extraProperties ____objectunic="true" panelColor="#B2A2C7">
+
+		<panel ____objectunic="true" isOpen="true" pathVisible="true">
+
+			<position ____objectunic="true" X="362" Y="467"/>
+</panel>
+</extraProperties>
+
+	<attributes name="ID" kind="storage" scope="public" uuid="6E0FC343920A534FAE2798903EBEC891" fieldPos="1" unique="true" autosequence="true" type="long" primKey="true"/>
+
+	<attributes name="first" kind="storage" scope="public" uuid="AC9BCB5AD17CFB4F9F1E8A875DE57093" fieldPos="2" type="string"/>
+
+	<attributes name="last" kind="storage" scope="public" uuid="F74A0C9D6E0FE84798F194C31D48F324" fieldPos="3" type="string"/>
+
+	<attributes name="coursesTaught" kind="relatedEntities" scope="public" type="Courses" reversePath="true" path="courseTeacher"/>
+
+	<attributes name="fullName" kind="calculated" scope="public" type="string" scriptKind="javascript">
+
+		<onGet from="guidedModel.Teacher.fullName.onGet"/>
+
+	</attributes>
+
+	<attributes name="studentsTaught" kind="relatedEntities" scope="public" type="Students" path="coursesTaught.attendees.theStudent"/>
+
+</dataClasses>
+</EntityModelCatalog>
